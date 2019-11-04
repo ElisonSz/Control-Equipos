@@ -1,0 +1,29 @@
+{
+  "name": "Control-Equipos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElisonSz/Control-Equipos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElisonSz/Control-Equipos/issues"
+  },
+  "homepage": "https://github.com/ElisonSz/Control-Equipos#readme",
+  "dependencies": {
+    "carbone": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-myconnection": "^1.0.4",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.4"
+  }
+}
