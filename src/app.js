@@ -10,11 +10,13 @@ const path = require('path')
 const app = express();
 dotenv.config();
 /* Rutes*/
-
+const usersRoutes = require('./routes/Users/routes')
 
 /* midlerwares*/
 app.use(bodyParser.json())
 app.use(morgan('dev'))
+/*rutes */
+app.use('/api',usersRoutes);
 
 /*Conexion DB*/
 app.use(myconnetion(mysql,{
