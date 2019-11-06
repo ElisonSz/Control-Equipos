@@ -5,7 +5,7 @@ module.exports = {
 
     validar : async (user,pass) =>{
         let result;
-        let data;
+        
         try {
             await models.withTransaction(db, async () =>{
                 result = await db.query("SELECT ID_USUARIO,ROL FROM usuarios WHERE USUARIO=? AND PASS=?",[user,pass])
