@@ -15,6 +15,19 @@ module.exports = {
         return result
     },
 
+    getDataPrestamos : async (data)=>{
+        let result;
+        try {
+              await models.withTransaction(db, async ()=>{
+                result = await db.query(data)
+        })        
+        } catch (err) {
+            return err
+        }
+        
+        return result
+    },
+
     getPrestamosForDate : async (fecha_entrada,fecha_salida)=>{
         let result;
         try {
