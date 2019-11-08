@@ -15,6 +15,17 @@ module.exports = {
         return result
     },
 
+    getPrestamosForDate : async (fecha_entrada,fecha_salida)=>{
+        let result;
+        try {
+        await models.withTransaction(db, async ()=>{
+            result = await db.query("SELECT A.ID_PRESTAMO,A.ID_USUARIO,CONCAT(U.NOMBRE,' ',U.APELLIDO) AS NOMBRE,U.CODIGO_EMPLEADO, E.NOMBRE AS NOMBRE_EQUIPO,E.NUMERO_SERIE, A.ESTADO_SALIDA, A.ESTADO_ENTRADA, DATE_FORMAT(A.FECHA_SALIDA,'%m/%d/%Y') AS FECHA_SALIDA, DATE_FORMAT(A.FECHA_ENTRADA, '%m/%d/%Y') AS FECHA_ENTRADA, A.ID_EQUIPO FROM prestamos A INNER JOIN usuarios U ON A.ID_USUARIO=U.ID_USUARIO INNER JOIN equipos E ON A.ID_EQUIPO = E.ID_EQUIPO WHERE A.ESTADO = 1 AND E.ACTIVO = 1 AND U.ACTIVO=1 AND E.DISPONIBLE=1 AND A.FECHA_SALIDA BETWEEN ? AND ?",[fecha_salida,fecha_entrada])
+        })        
+        } catch (err) {
+            return err
+        }
+        return result
+    },
     createPrestamo : async (data)=>{
         let id
         let result
@@ -35,6 +46,7 @@ module.exports = {
     },
 
     updatePrestamo : async (data,id)=>{
+        
         let result;
         try {
             await models.withTransaction(db, async()=>{
