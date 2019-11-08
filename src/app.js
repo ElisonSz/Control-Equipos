@@ -13,7 +13,7 @@ dotenv.config();
 const loginRoutes = require('./routes/login/login')
 const usersRoutes = require('./routes/Users/routes')
 const equiposRoutes = require('./routes/Equipos/routes')
-
+const prestamosRoutes = require('./routes/Prestamos/Prestamos')
 /* midlerwares*/
 app.use(bodyParser.json())
 app.use(morgan('dev'))
@@ -21,15 +21,16 @@ app.use(morgan('dev'))
 app.use('/api',loginRoutes);
 app.use('/api',usersRoutes);
 app.use('/api',equiposRoutes);
+app.use('/api',prestamosRoutes);
 
 /*Conexion DB*/
-app.use(myconnetion(mysql,{
+/*app.use(myconnetion(mysql,{
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     database: process.env.DB_DATABASE}, 'single'));
-
+*/
 /*carpetas publicas */
 app.use(express.static(path.join(__dirname,'public')))
 

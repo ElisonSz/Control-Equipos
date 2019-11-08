@@ -27,6 +27,7 @@ Equipo.getEquipos = async(req,res)=>{
  Equipo.createEquipo = async (req,res)=>{
     const data = req.body;
     console.log(data)
+    
     if(data){
         let result = await services.createEquipo(data);
         console.log(result)
