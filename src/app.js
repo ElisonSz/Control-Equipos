@@ -24,13 +24,13 @@ app.use('/api',equiposRoutes);
 app.use('/api',prestamosRoutes);
 
 /*Conexion DB*/
-/*app.use(myconnetion(mysql,{
+app.use(myconnetion(mysql,{
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     database: process.env.DB_DATABASE}, 'single'));
-*/
+
 /*carpetas publicas */
 app.use(express.static(path.join(__dirname,'public')))
 

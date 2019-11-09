@@ -3,12 +3,14 @@ const services = require("../../services/login/login")
 module.exports = {
 
     validar: async (req, res) => {
+        
         const data = req.body;
         const user = data.user;
         const pass = data.pass;
-
+        
         if (user && pass) {
             let result = await services.validar(user, pass);
+            
             if (result.errno) {
                 res.status(500).json("Error de servidor")
             } else if (result.length > 0) {
@@ -22,9 +24,5 @@ module.exports = {
                 res.status(403).json({ ok })
             }
         }
-    },
-
-    logout: async (req, res) => {
-
     }
 }

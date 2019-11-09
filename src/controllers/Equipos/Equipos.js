@@ -14,6 +14,7 @@ Equipo.getEquipos = async(req,res)=>{
     }
  },
  Equipo.getOneEquipo = async (req,res)=>{
+     
     const id = req.params.id;
     let result = await services.getOneEquipo(id);
     if(result.errno){
@@ -61,8 +62,9 @@ Equipo.getEquipos = async(req,res)=>{
  }
  //!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CATEGORIAS-EQUIPOS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!//
 Equipo.getCtEquipo = async (req,res)=>{
-    
+   
     let result= await services.getCtEquipos();
+    
     if(result.errno){
         res.status(500).json(result.errno)
     }else if(result.length>0){
@@ -80,7 +82,7 @@ Equipo.getCtOneEquipo = async (req,res)=>{
     }else if(result.length>0){
         res.status(200).json(result)
     }else{
-        res.status(404).json(result)
+        res.status(404).json("error")
     }
 },
 

@@ -8,7 +8,7 @@ module.exports = {
         
         try {
             await models.withTransaction(db, async () =>{
-                result = await db.query("SELECT ID_USUARIO,ROL FROM usuarios WHERE USUARIO=? AND PASS=? AND ACTIVO=1",[user,pass])
+                result = await db.query("SELECT ID_USUARIO,ROL FROM USUARIOS WHERE USUARIO=? AND PASS=? AND ACTIVO=1",[user,pass])
             })
         } catch (err) {
             return err
