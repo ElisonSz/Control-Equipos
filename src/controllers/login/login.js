@@ -1,7 +1,7 @@
 const services = require("../../services/login/login")
-const login = {}
 
-login.validar = async (req,res)=>{
+module.exports = {
+validar = async (req,res)=>{
      const data = req.body;
      const user = data.user;
      const pass = data.pass;
@@ -23,9 +23,7 @@ login.validar = async (req,res)=>{
      }
 },
 
-login.logout = async (req,res) =>{
+logout = async (req,res) =>{
 
 }
-
-
-module.exports = login;
+}
