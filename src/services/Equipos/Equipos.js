@@ -44,11 +44,12 @@ module.exports={
         let result;
         try {
             await models.withTransaction(db,async()=>{
-                result = await db.query("UPDATE EQUIPOS SET ? WHERE = ?",[data,id])
+                result = await db.query("UPDATE EQUIPOS SET ? WHERE ID_EQUIPO= ?",[data,id])
             })
         } catch (err) {
             return err
         }
+        console.log(result)
         return result;
     },
    //!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>CATEGORIA-EQUIPOS<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!//
