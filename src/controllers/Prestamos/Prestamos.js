@@ -1,7 +1,12 @@
+const template = "./plantillas/prestamos.odt"
 const services = require("../../services/Prestamos/Prestamos")
 const helpers = require("../../helpers/helpers")
 const carbone = require("carbone");
+const fs = require('fs');
+const path = require('path')
+
 module.exports ={
+    
 
     createPrestamo : async (req,res)=>{
         const data = req.body;
@@ -20,11 +25,57 @@ module.exports ={
     },
 
     getPrestamo : async (req,res)=>{
-        let result = await services.getPrestamos();
+
+        const data = req.data;
+        if(!data){
+            let result = await services.getPrestamos();
+            if(result.errno){
+                res.status(500).json("Error de servidor")
+            }else if(result.length>0){
+                res.status(200).json(result)
+            }else{
+                res.status(404).json(result)
+            }
+
+        }else{
+               let datos = helpers.query(data);
+    
+            if(datos){
+                let result = await services.getDataPrestamos(datos);
+                if(result.errno){
+                    res.status(500).json("Error de servidor")
+                }else if(result.length>0){
+                    res.status(200).json(result)
+                }else{
+                    res.status(404).json(result)
+                }
+            }else{
+                res.status(400).json("Faltan datos importantes");
+            }
+        }
+    },
+    getIdPrestamo : async (req,res)=>{
+        const id = req.params.id;
+        let options = {
+            convertTo : 'pdf' //can be docx, txt, ...
+        };
+        let result = await services.getIdPrestamos(id);
         if(result.errno){
             res.status(500).json("Error de servidor")
         }else if(result.length>0){
-            res.status(200).json(result)
+            console.table(result[0])
+           carbone.render(template,result,options,(err,reporte)=>{
+            if(err){
+                res.status(500).json(err)
+            }else{
+                fs.writeFile("../../tmp",reporte,(err)=>{
+                    if(err) return res.status(500).json(err)
+                    res.type('application/pdf')
+                    fs.unlinkSync("../../tmp/simple.pdf")
+                    return res.send(reporte)
+                })
+            }
+           })
         }else{
             res.status(404).json(result)
         }

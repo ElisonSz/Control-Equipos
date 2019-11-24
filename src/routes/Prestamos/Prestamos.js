@@ -2,8 +2,9 @@ const express = require('express');
 const route = express.Router();
 const prestamos = require("../../controllers/Prestamos/Prestamos")
 
-route.get('/prestamos',prestamos.getPrestamo);
-route.get('/prestamos/:data',prestamos.getDataPrestamos);
+route.get('/prestamos/all',prestamos.getPrestamo);
+route.get('/prestamos/all/:data',prestamos.getDataPrestamos);
+route.get('/prestamos/:id',prestamos.getIdPrestamo);
 route.post('/prestamos',prestamos.createPrestamo);
 route.post('/prestamos/date',prestamos.getPrestamoForDate);
 route.put('/prestamos',prestamos.updatePrestamo);
