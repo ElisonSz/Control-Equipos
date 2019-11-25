@@ -9,6 +9,41 @@ module.exports = {
                 query+= ` AND (U.NOMBRE LIKE '%${data[i]}%' OR U.APELLIDO LIKE '%${data[i]}%' OR U.CODIGO_EMPLEADO LIKE '%${data[i]}%')`
             }
             return query
+    },
+
+    addDate: (datos)=>{
+    
+       
+       let hoy = new Date();
+            let hora = hoy.getHours();
+            let minutos = hoy.getMinutes();
+            let segundos = hoy.getSeconds();
+            let dd=hoy.getDate();
+            let mm=hoy.getMonth()+1;
+            let yyyy = hoy.getFullYear();
+            if(mm<10){
+                mm= '0' + mm;
+            }
+            if(dd<10){
+                dd= '0' + dd;
+            }
+            if(minutos<10){
+                minutos= '0' + minutos;
+            }
+    
+            if(segundos<10){
+                segundos= '0' + segundos;
+            }
+            datos['fecha_impreso'] = `${dd}/${mm}/${yyyy}`
+            //datos['hora_impreso'] = `${hora}:${minutos}:${segundos}`
+            
+        
+        // if(segundos<10){
+        //     segundos= '0' + segundos;
+        // }
+
+            //console.log(datos['p']['fecha_ingreso'])
+        
     }
 
 

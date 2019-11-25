@@ -63,8 +63,9 @@ module.exports ={
         if(result.errno){
             res.status(500).json("Error de servidor")
         }else if(result.length>0){
-            console.table(result[0])
-           carbone.render(template,result,options,(err,reporte)=>{
+            console.table(result)
+            helpers.addDate(result[0])
+           carbone.render(template,result[0],options,(err,reporte)=>{
             if(err){
                 res.status(500).json(err)
             }else{
