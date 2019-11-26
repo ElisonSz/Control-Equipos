@@ -1,4 +1,5 @@
 const services = require('../../services/Users/Users')
+const helpers = require("../../helpers/helpers")
 const User = {}
 
 User.getUser = async(req,res)=>{
@@ -26,7 +27,9 @@ User.getOneUser = async (req,res)=>{
 
 User.createUser = async (req,res)=>{
     const data = req.body;
-    console.log(data)
+    let PASS = await helpers.encrypt(data.PASS)
+    data.PASS = PASS;
+    
     if(data){
         let result = await services.createUser(data);
         console.log(result)

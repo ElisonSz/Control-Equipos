@@ -29,12 +29,13 @@ module.exports={
     createUser: async(data)=>{
         let result
         try {
-             await models.withTransaction(db,async()=>{
-                 result = await db.query("INSERT INTO USUARIOS SET ? ",[data])
+            result = await models.withTransaction(db,async()=>{
+                  await db.query("INSERT INTO USUARIOS SET ? ",[data])
              })
         } catch (err) {
             return err
         }
+        console.log(result)
         return result
     },
 

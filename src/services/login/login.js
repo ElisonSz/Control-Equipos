@@ -3,12 +3,12 @@ const db = models.makeDb()
 
 module.exports = {
 
-    validar : async (user,pass) =>{
+    validar : async (user) =>{
         let result;
         
         try {
             await models.withTransaction(db, async () =>{
-                result = await db.query("SELECT ID_USUARIO,ROL FROM USUARIOS WHERE USUARIO=? AND PASS=? AND ACTIVO=1",[user,pass])
+                result = await db.query("SELECT ID_USUARIO,ROL,PASS FROM USUARIOS WHERE USUARIO=? AND ACTIVO=1",[user])
             })
         } catch (err) {
             return err

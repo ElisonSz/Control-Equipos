@@ -1,3 +1,5 @@
+const cryptojs = require('crypto-js');
+const bcrypt = require('bcrypt')
 module.exports = {
 
     query: (data)=>{
@@ -44,7 +46,17 @@ module.exports = {
 
             //console.log(datos['p']['fecha_ingreso'])
         
-    }
+    },
+
+
+    encrypt: async (pass) =>{
+        const hash = await bcrypt.hash(pass,10)
+        return hash
+    },
+    comparar: async (pass,hash)=>{
+        const result = await bcrypt.compare(pass,hash)
+        return result
+    },
 
 
 }
