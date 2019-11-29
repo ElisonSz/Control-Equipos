@@ -70,7 +70,7 @@ module.exports ={
                 res.status(500).json(err)
             }else{
                 fs.writeFile("./tmp/simple.pdf",reporte,(err)=>{
-                    if(err) return res.status(500).json(err)
+                    if(err) return res.status(500).json('Error al escribir el nombre de la carpeta')
                     res.type('application/pdf')
                     //fs.unlinkSync("./tmp/simple.pdf")
                     return res.send(reporte)
