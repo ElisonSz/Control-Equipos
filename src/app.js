@@ -25,11 +25,11 @@ app.use('/api',prestamosRoutes);
 
 /*Conexion DB*/
 app.use(myconnetion(mysql,{
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
-    database: process.env.DB_DATABASE}, 'single'));
+    host: '167.172.195.6',
+    user: 'test',
+    password: 'Elisongs.98',
+    port: 3306,
+    database: 'Control_Equipos'}, 'single'));
 
 /*carpetas publicas */
 app.use(express.static(path.join(__dirname,'public')))
