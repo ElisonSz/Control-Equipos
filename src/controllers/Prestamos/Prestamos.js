@@ -72,7 +72,7 @@ module.exports ={
                 fs.writeFile("./tmp/simple.pdf",reporte,(err)=>{
                     if(err) return res.status(500).json(err)
                     res.type('application/pdf')
-                    //fs.unlinkSync("./tmp/simple.pdf")
+                    fs.unlinkSync("./tmp/simple.pdf")
                     return res.send(reporte)
                 })
             }
