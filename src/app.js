@@ -1,3 +1,4 @@
+
 /*DEPENDENCIAS*/
 const express = require('express');
 const morgan = require('morgan')
@@ -6,7 +7,7 @@ const mysql = require('mysql');
 const myconnetion = require('express-myconnection');
 const dotenv = require('dotenv');
 const path = require('path')
-
+const cors = require('cors')
 const app = express();
 dotenv.config();
 /* Rutes*/
@@ -15,8 +16,14 @@ const usersRoutes = require('./routes/Users/routes')
 const equiposRoutes = require('./routes/Equipos/routes')
 const prestamosRoutes = require('./routes/Prestamos/Prestamos')
 /* midlerwares*/
+const corsOptions = {
+    origin:"*",
+    optionsSuccessStatus:200
+}
+
 app.use(bodyParser.json())
 app.use(morgan('dev'))
+app.use(cors(corsOptions))
 /*rutes */
 app.use('/api',loginRoutes);
 app.use('/api',usersRoutes);
