@@ -105,6 +105,7 @@ module.exports ={
     
      getDataPrestamosPendientes : async (req,res)=>{
             let result = await services.getPrestamosPendientes();
+          console.log(result['PRESTAMOS_PENDIENTES'])
             if(result.errno){
                 res.status(500).json("Error de servidor")
             }else if(result['PRESTAMOS_PENDIENTES']){
@@ -116,7 +117,7 @@ module.exports ={
     
     getDataPrestamosSolventes : async (req,res)=>{
             let result = await services.getPrestamosSolventes();
-        console.log(result['PRESTAMOS_PENDIENTES'])
+       
             if(result.errno){
                 res.status(500).json("Error de servidor")
             }else if(result['PRESTAMOS_SOLVENTES']){
