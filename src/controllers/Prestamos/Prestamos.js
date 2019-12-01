@@ -14,6 +14,7 @@ module.exports ={
         if(data){
             let result = await services.createPrestamo(data);            
             if(result['result'].errno){
+                console.log(result['result'])
                 res.status(500).json("Error de servidor")
             }else if(result['idprestamo']){
                 res.status(201).json(result['idprestamo'])
