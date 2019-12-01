@@ -62,7 +62,7 @@ module.exports = {
         try {
 
         result = await models.withTransaction(db, async ()=>{
-        id = await db.query("INSERT INTO prestamos SET ?",[data])
+        id = await db.query("INSERT INTO PRESTAMOS SET ?",[data])
         idprestamo = id.insertId
             
         idE = result[0].ID_EQUIPO;
@@ -79,7 +79,7 @@ module.exports = {
         let result;
         try {
             await models.withTransaction(db, async()=>{
-                result = await db.query("UPDATE prestamos SET ? WHERE ID_PRESTAMO=?",[data,id])
+                result = await db.query("UPDATE PRESTAMOS SET ? WHERE ID_PRESTAMO=?",[data,id])
             })
         } catch (err) {
             return err
