@@ -24,6 +24,7 @@ module.exports = {
         } catch (err) {
             return err
         }
+         console.log(result['PRESTAMOS_PENDIENTES'])
         return result
     },
     
