@@ -14,6 +14,31 @@ module.exports = {
         }
         return result
     },
+    
+     getPrestamosPendientes : async ()=>{
+        let result;
+        try {
+        await models.withTransaction(db, async ()=>{
+            result = await db.query("SELECT COUNT(*) as PRESTAMOS_PENDIENTES FROM PRESTAMOS WHERE ESTADO=1")
+        })        
+        } catch (err) {
+            return err
+        }
+        return result
+    },
+    
+    
+    getPrestamosSolventes : async ()=>{
+        let result;
+        try {
+        await models.withTransaction(db, async ()=>{
+            result = await db.query("SELECT COUNT(*) as PRESTAMOS_SOLVENTES FROM PRESTAMOS WHERE ESTADO=2")
+        })        
+        } catch (err) {
+            return err
+        }
+        return result
+    },
 
     getIdPrestamos : async (id)=>{
         let result;
