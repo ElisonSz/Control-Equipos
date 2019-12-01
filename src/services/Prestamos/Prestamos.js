@@ -58,7 +58,7 @@ module.exports = {
         let id
         let result
         let idE
-       
+       let idprestamo
         try {
 
         result = await models.withTransaction(db, async ()=>{
@@ -71,7 +71,7 @@ module.exports = {
         } catch (err) {
             return err
         }
-        return result
+        return {result,idprestamo}
     },
 
     updatePrestamo : async (data,id)=>{
