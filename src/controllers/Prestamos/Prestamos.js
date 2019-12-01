@@ -107,7 +107,7 @@ module.exports ={
             let result = await services.getPrestamosPendientes();
             if(result.errno){
                 res.status(500).json("Error de servidor")
-            }else if(result.length>0){
+            }else if(result){
                 res.status(200).json(result)
             }else{
                 res.status(404).json(result)
@@ -118,7 +118,7 @@ module.exports ={
             let result = await services.getPrestamosSolventes();
             if(result.errno){
                 res.status(500).json("Error de servidor")
-            }else if(result.length>0){
+            }else if(result){
                 res.status(200).json(result)
             }else{
                 res.status(404).json(result)
