@@ -13,10 +13,10 @@ module.exports ={
         
         if(data){
             let result = await services.createPrestamo(data);            
-            if(result['result'].errno){
+            if(result.result.errno){
                 console.log(result['result'])
                 res.status(500).json("Error de servidor")
-            }else if(result['idprestamo']){
+            }else if(result.idprestamo){
                 res.status(201).json(result['idprestamo'])
                 
             }else { 
@@ -64,7 +64,7 @@ module.exports ={
         if(result.errno){
             res.status(500).json("Error de servidor")
         }else if(result.length>0){
-            console.table(result[0])
+            
             helpers.addDate(result[0])
            carbone.render(template,result[0],options,(err,reporte)=>{
             if(err){
@@ -86,7 +86,6 @@ module.exports ={
     getDataPrestamos : async (req,res)=>{
         const data = req.params.data;
       
-        console.log(data)
            let datos = helpers.query(data);
 
         if(datos){
@@ -130,7 +129,7 @@ module.exports ={
         const data = req.body;
         const fecha_entrada = data.FECHA_ENTRADA;
         const fecha_salida = data.FECHA_SALIDA;
-        console.log(data)
+
         if(fecha_salida && fecha_entrada){
             let result = await services.getPrestamosForDate(fecha_entrada,fecha_salida);
             if(result.errno){

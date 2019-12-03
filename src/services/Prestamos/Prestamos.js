@@ -90,13 +90,14 @@ module.exports = {
         result = await models.withTransaction(db, async ()=>{
         id = await db.query("INSERT INTO PRESTAMOS SET ?",[data])
         idprestamo = id.insertId
-            
-        idE = result[0].ID_EQUIPO;
+            console.log(data)
+        idE = data.ID_EQUIPO;
         await db.query("UPDATE EQUIPOS SET DISPONIBLE=0 WHERE ID_EQUIPO=?",[idE])
             })
         } catch (err) {
             return err
         }
+        console.log(result)
         return {result,idprestamo}
     },
 
