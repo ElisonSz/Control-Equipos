@@ -10,4 +10,10 @@ route.get('/solventes/prestamos',prestamos.getDataPrestamosSolventes);
 route.post('/prestamos',prestamos.createPrestamo);
 route.post('/prestamos/date',prestamos.getPrestamoForDate);
 route.put('/prestamos',prestamos.updatePrestamo);
+
+route.get('/reservas',prestamos.getReservas);
+route.get('/reservas/:id',prestamos.getReservaUser);
+route.post('/reservas',prestamos.createReserva);
+route.put('/reservas',prestamos.updatePrestamo);
+route.get('/reservas/users/:id',prestamos.getReservaUser);
 module.exports = route;

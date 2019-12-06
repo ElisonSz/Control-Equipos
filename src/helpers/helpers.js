@@ -37,14 +37,7 @@ module.exports = {
                 segundos= '0' + segundos;
             }
             datos['fecha_impreso'] = `${dd}/${mm}/${yyyy}`
-            //datos['hora_impreso'] = `${hora}:${minutos}:${segundos}`
-            
-        
-        // if(segundos<10){
-        //     segundos= '0' + segundos;
-        // }
 
-            //console.log(datos['p']['fecha_ingreso'])
         
     },
 

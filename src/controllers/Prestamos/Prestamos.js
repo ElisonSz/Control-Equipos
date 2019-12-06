@@ -24,6 +24,33 @@ module.exports ={
             }
         }
     },
+    createReserva : async (req,res)=>{
+        const data = req.body;
+        
+        if(data){
+            let result = await services.createReserva(data);            
+            if(result.errno){
+                
+                res.status(500).json("Error de servidor")
+            }else if(result.idprestamo){
+                res.status(201).json(result)
+                
+            }else { 
+                res.status(400).json("Ocurrio un error")
+            }
+        }
+    },
+
+    getReservas : async (req,res)=>{
+            let result = await services.getReservas();
+            if(result.errno){
+                res.status(500).json("Error de servidor")
+            }else if(result.length>0){
+                res.status(200).json(result)
+            }else{
+                res.status(404).json(result)
+            }
+        },
 
     getPrestamo : async (req,res)=>{
 
@@ -102,6 +129,22 @@ module.exports ={
         }
     },
     
+
+    getReservaUser : async (req,res)=>{
+        const id = req.params.id;
+        if(id){
+            let result = await services.getReservaForUser(id);
+            if(result.errno){
+                res.status(500).json("Error de servidor")
+            }else if(result.length>0){
+                res.status(200).json(result)
+            }else{
+                res.status(404).json(result)
+            }
+        }else{
+            res.status(400).json("Faltan datos importantes");
+        }
+    },
      getDataPrestamosPendientes : async (req,res)=>{
             let result = await services.getPrestamosPendientes();
             if(result.errno){
