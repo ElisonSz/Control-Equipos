@@ -26,6 +26,18 @@ module.exports = {
         }
         return result
     },
+    getCodigoReserva : async (id,codigo)=>{
+        let result;
+        try {
+        await models.withTransaction(db, async ()=>{
+            result = await db.query("SELECT * FROM CODIGO_VERIFICACION WHERE ID_PRESTAMO=? AND CODIGO=? AND ACTIVO=1",[id,codigo])
+        })        
+        } catch (err) {
+            return err
+        }
+        console.log(result)
+        return result
+    },
     
      getPrestamosPendientes : async ()=>{
         let result;
@@ -133,23 +145,25 @@ module.exports = {
         
         return {result,idprestamo}
     },
-    createReserva : async (data)=>{
+    createReserva : async (data,codigo)=>{
         let id
         let result
         let idE
        let idReserva
+       let v
         try {
 
         result = await models.withTransaction(db, async ()=>{
         id = await db.query("INSERT INTO PRESTAMOS SET ?",[data])
         idReserva = id.insertId
-            await db.query("UPDATE PRESTAMOS SET ESTADO=3 WHERE=?",[idReserva])
+       v= await db.query("INSERT INTO CODIGO_VERIFICACION (ID_PRESTAMO,CODIGO) VALUES (?,?)",[idReserva,codigo])
         idE = data.ID_EQUIPO;
         await db.query("UPDATE EQUIPOS SET DISPONIBLE=0 WHERE ID_EQUIPO=?",[idE])
             })
         } catch (err) {
             return err
         }
+        console.log(v)
         return result
     },
 
@@ -164,5 +178,24 @@ module.exports = {
             return err
         }
         return result
+    },
+
+    updateReserva : async (idReserva,id_codigo)=>{
+        
+        let result;
+        let v;
+        let codigo;
+        try {
+            result= await models.withTransaction(db, async()=>{
+               v=   await db.query("UPDATE PRESTAMOS SET ESTADO=1 WHERE ID_PRESTAMO=?",[idReserva])
+                codigo = await db.query("UPDATE CODIGO_VERIFICACION SET ACTIVO=0 WHERE ID_CODIGO=?",[id_codigo])
+            })
+        } catch (err) {
+            return err
+        }
+        console.log(codigo)
+        console.log(v)
+        console.log(result)
+        return {result,v,codigo}
     }
 }

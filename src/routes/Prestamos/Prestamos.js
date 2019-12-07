@@ -15,5 +15,6 @@ route.get('/reservas',prestamos.getReservas);
 route.get('/reservas/:id',prestamos.getReservaUser);
 route.post('/reservas',prestamos.createReserva);
 route.put('/reservas',prestamos.updatePrestamo);
+route.post('/reservas/despacho',prestamos.updateReserva);
 route.get('/reservas/users/:id',prestamos.getReservaUser);
 module.exports = route;

@@ -4,7 +4,7 @@ const helpers = require("../../helpers/helpers")
 const carbone = require("carbone");
 const fs = require('fs');
 const path = require('path')
-
+const crypto = require('crypto')
 module.exports ={
     
 
@@ -24,17 +24,43 @@ module.exports ={
             }
         }
     },
+
+    updateReserva : async(req,res)=>{
+        const {idReserva,codigo}=req.body;
+        
+        if(codigo&&idReserva){
+            let resultD = await services.getCodigoReserva(idReserva,codigo);
+            if(resultD.errno){
+                res.status(500).json("Error de servidor")
+            }else if(resultD.length>0){
+                let result = await services.updateReserva(idReserva,resultD[0].ID_CODIGO)
+                if(result['result'].errno){
+                    res.status(500).json("Error de servidor")
+                }else if(result['v'].affectedRows>0 && result['codigo'].affectedRows>0){
+                    res.status(200).json('Se creo que el prestamo con exito')
+                }else{
+                    res.status(400).json(result)
+                }
+            }else{
+                res.status(404).json(result)
+            }
+        }else{
+            res.status(400).json("Faltan datos importantes")
+        }
+    },
     createReserva : async (req,res)=>{
         const data = req.body;
-        
+        let codigo
         if(data){
-            let result = await services.createReserva(data);            
+            data['ESTADO']=3
+            codigo= crypto.randomBytes(5).toString('hex')
+
+            let result = await services.createReserva(data,codigo);            
             if(result.errno){
                 
                 res.status(500).json("Error de servidor")
-            }else if(result.idprestamo){
+            }else if(result){
                 res.status(201).json(result)
-                
             }else { 
                 res.status(400).json("Ocurrio un error")
             }
@@ -43,6 +69,18 @@ module.exports ={
 
     getReservas : async (req,res)=>{
             let result = await services.getReservas();
+            if(result.errno){
+                res.status(500).json("Error de servidor")
+            }else if(result.length>0){
+                res.status(200).json(result)
+            }else{
+                res.status(404).json(result)
+            }
+        },
+
+        getCodigoReserva : async (req,res)=>{
+            const {id,codigo} = req.body;
+            let result = await services.getCodigoReserva(id,codigo);
             if(result.errno){
                 res.status(500).json("Error de servidor")
             }else if(result.length>0){
