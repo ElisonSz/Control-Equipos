@@ -37,7 +37,7 @@ module.exports = {
                 segundos= '0' + segundos;
             }
             datos['fecha_impreso'] = `${dd}/${mm}/${yyyy}`
-
+           
         
     },
 
