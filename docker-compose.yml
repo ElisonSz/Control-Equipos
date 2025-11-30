@@ -1,0 +1,58 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: control-equipos-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: control-equipos
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - control-equipos-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: control-equipos-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - control-equipos-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: control-equipos-app
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      MONGODB_URI: mongodb://mongodb:27017/control-equipos
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: ${JWT_SECRET:-change-this-secret-in-production}
+      JWT_EXPIRES_IN: 24h
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - control-equipos-network
+
+volumes:
+  mongodb_data:
+  redis_data:
+
+networks:
+  control-equipos-network:
+    driver: bridge
+
+
